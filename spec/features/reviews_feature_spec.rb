@@ -2,9 +2,10 @@ require 'rails_helper'
 
 feature 'reviewing' do
 
-  before {Restaurant.create name: 'KFC'}
-
   scenario 'allows users to leave a review using a form' do
+    sign_up('test')
+    add_restaurant('KFC')
+    click_link('Sign out')
     visit '/restaurants'
     click_link 'Review KFC'
     fill_in "Thoughts", with: "so, so"
@@ -17,6 +18,7 @@ feature 'reviewing' do
 
   scenario 'that reviews get deleted if the restaurant gets deleted' do
     sign_up('test')
+    add_restaurant('KFC')
     visit '/restaurants'
     click_link 'Review KFC'
     fill_in "Thoughts", with: "so, so"

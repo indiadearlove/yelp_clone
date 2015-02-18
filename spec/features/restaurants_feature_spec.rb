@@ -69,10 +69,9 @@ feature 'restaurants' do
 
   context 'editing restaurants' do
 
-    before {Restaurant.create name: 'KFC'}
-
     scenario 'let a user edit a restaurant' do
       sign_up('test')
+      add_restaurant('KFC')
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -85,10 +84,11 @@ feature 'restaurants' do
 
   context 'deleting restaurants' do
 
-    before {Restaurant.create name: 'KFC'}
+
 
     scenario 'removes a restaurant when a user clicks a delete link' do
       sign_up('test')
+      add_restaurant('KFC')
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
@@ -108,13 +108,14 @@ feature 'restaurants' do
 
   context 'editing and deleting restaurants determined by user creation' do
 
-    scenario 'does not allow a user to edit a restaurant they did not create' do
+    scenario 'does not allow user to edit or delete a restaurant they did not create' do
       sign_up('test')
       add_restaurant('KFC')
       click_link('Sign out')
       sign_up('bob')
       expect(page).to have_link('KFC')
       expect(page).not_to have_link('Edit KFC')
+      expect(page).not_to have_link('Delete KFC')
     end
 
   end
