@@ -110,6 +110,10 @@ feature 'restaurants' do
 
     scenario 'does not allow a user to edit a restaurant they did not create' do
       sign_up('test')
+      create_restaurant('KFC')
+      click_link('Sign out')
+      sign_up('bob')
+      expect(page).not_to have_content 'Edit KFC'
     end
 
   end

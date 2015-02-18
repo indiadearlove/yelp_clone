@@ -57,3 +57,12 @@ def sign_up(email)
   fill_in('Password confirmation', with: 'testtest')
   click_button('Sign up')
 end
+
+#Creating a restaurant only works after signing in
+
+def create_restaurant(restaurant)
+    click_link('Add a restaurant')
+    fill_in('Name', with: "#{restaurant}")
+    click_button('Create Restaurant')
+end
+
