@@ -26,9 +26,10 @@ feature 'restaurants' do
 
   end
 
-  context 'craeting restaurants' do
+  context 'creating restaurants' do
 
     scenario 'prompts user to fill out a form, then displays the new restaurant' do
+      sign_up('test')
       visit '/restaurants'
       click_link 'Add a restaurant'
       fill_in 'Name', with: 'KFC'
@@ -40,6 +41,7 @@ feature 'restaurants' do
     context 'an invalid restaurant' do
 
       it 'does not let you submit a name that is too short' do
+        sign_up('test')
         visit '/restaurants'
         click_link 'Add a restaurant'
         fill_in 'Name', with: 'kf'
@@ -70,6 +72,7 @@ feature 'restaurants' do
     before {Restaurant.create name: 'KFC'}
 
     scenario 'let a user edit a restaurant' do
+      sign_up('test')
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -84,11 +87,29 @@ feature 'restaurants' do
 
     before {Restaurant.create name: 'KFC'}
 
-    scenario 'removes a restaurantwhen a user clicks a delete link' do
+    scenario 'removes a restaurant when a user clicks a delete link' do
+      sign_up('test')
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
+    end
+
+  end
+
+  context 'actions when not authenticated' do
+
+    scenario 'does not allow adding a new restaurant when not signed in' do
+      visit('/restaurants/new')
+      expect(page).to have_content('Log in')
+    end
+
+  end
+
+  context 'editing and deleting restaurants determined by user creation' do
+
+    scenario 'does not allow a user to edit a restaurant they did not create' do
+      sign_up('test')
     end
 
   end

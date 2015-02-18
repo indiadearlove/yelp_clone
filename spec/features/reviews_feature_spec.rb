@@ -16,6 +16,7 @@ feature 'reviewing' do
   end
 
   scenario 'that reviews get deleted if the restaurant gets deleted' do
+    sign_up('test')
     visit '/restaurants'
     click_link 'Review KFC'
     fill_in "Thoughts", with: "so, so"
