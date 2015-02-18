@@ -57,3 +57,10 @@ def sign_up(email)
   fill_in('Password confirmation', with: 'testtest')
   click_button('Sign up')
 end
+
+def add_restaurant(restaurant)
+  visit('/')
+  click_link('Add a restaurant')
+  fill_in('Name', with: "#{restaurant}")
+  click_button('Create Restaurant')
+end
