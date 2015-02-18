@@ -1,10 +1,12 @@
 class ReviewsController < ApplicationController
 
+  include ReviewsHelper
+
   def new
     @restaurant = Restaurant.find(params[:restaurant_id])
     if user_has_reviewed(@restaurant)
       flash[:notice] = 'You can only review a restaurant once'
-      redirect_to retaurants_path
+      redirect_to restaurants_path
     else
       @review = Review.new
     end

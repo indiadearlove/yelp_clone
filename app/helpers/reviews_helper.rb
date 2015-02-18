@@ -9,7 +9,7 @@ module ReviewsHelper
   end
 
   def all_reviews_for(restaurant)
-    reviews.all.select { |review| review.restaurant_id == restaurant.id}
+    Review.all.select { |review| review.restaurant_id == restaurant.id}
   end
 
   def user_reviewed(restaurant)
