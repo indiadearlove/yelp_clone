@@ -5,7 +5,6 @@ feature 'reviewing' do
   scenario 'allows users to leave a review using a form' do
     sign_up('test')
     add_restaurant('KFC')
-    click_link('Sign out')
     visit '/restaurants'
     click_link 'Review KFC'
     fill_in "Thoughts", with: "so, so"
@@ -26,6 +25,18 @@ feature 'reviewing' do
     click_button 'Leave Review'
     click_link 'Delete KFC'
     expect(Review.all.any?).to be false
+  end
+
+  scenario 'users can only leave one review per restaurant' do
+    sign_up('test')
+    add_restaurant('KFC')
+    click_link 'Review KFC'
+    fill_in "Thoughts", with: "so, so"
+    select '3', from: 'Rating'
+    click_button 'Leave Review'
+    click_link 'Review KFC'
+    expect(current_path).to eq '/restaurants'
+    expect(page).to have_content('You can only leave one review per restaurant')
   end
 
 end
