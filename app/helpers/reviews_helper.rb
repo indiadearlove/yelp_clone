@@ -16,7 +16,7 @@ module ReviewsHelper
       when ((60 * 60 * 24)+1)..( 60 * 60 * 24 * 7)
         return "#{(time_since_post_seconds/60/60/24).to_i} days ago"
       else
-        return review.created_at
+        return review.created_at.strftime("%-d-%-m-%Y")
     end
 
   end
