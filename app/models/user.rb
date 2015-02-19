@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def has_reviewed?(restaurant)
-    self.reviews.select { |review| review.restaurant_id == restaurant.id }.any?
+    self.reviews.select { |review| review.restaurant == restaurant }.any?
   end
 
 end
