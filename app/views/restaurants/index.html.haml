@@ -8,7 +8,7 @@
     %h3
       Reviews for
       = restaurant.name
-
+      Average rating: #{restaurant.average_rating} / 5
     - if restaurant.reviews.any?
       %u1
         - restaurant.reviews.each do |review|

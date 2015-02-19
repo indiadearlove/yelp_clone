@@ -38,7 +38,7 @@ describe 'average_rating' do
   end
 
   context 'multiple reviews' do
-    
+
     it 'returns the average' do
       restaurant = Restaurant.create(name: 'The Ivy')
       restaurant.reviews.create(rating: 5)

@@ -68,7 +68,8 @@ feature 'reviewing' do
     click_link('Sign out')
     sign_up('tom')
     leave_review('KFC','Great', 5)
-    expect(page).to have_content('Average rating: 4')
+    expect(page).to have_content('Average rating: ★★★★☆')
   end
+
 
 end
