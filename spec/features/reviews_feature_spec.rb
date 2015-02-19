@@ -52,13 +52,23 @@ feature 'reviewing' do
     expect(page).not_to have_link('Delete review')
   end
 
-    scenario 'users can delete their own reviews' do
+  scenario 'users can delete their own reviews' do
     sign_up('test')
     add_restaurant('KFC')
     leave_review('KFC', "so, so", "3")
     click_link('Delete review')
     expect(page).not_to have_content("so, so")
     expect(page).to have_content('Review deleted successfully')
+  end
+
+  scenario 'display an average rating for all reviews' do
+    sign_up('bob')
+    add_restaurant('KFC')
+    leave_review('KFC', 'So, so', 3)
+    click_link('Sign out')
+    sign_up('tom')
+    leave_review('KFC','Great', 5)
+    expect(page).to have_content('Average rating: 4')
   end
 
 end
