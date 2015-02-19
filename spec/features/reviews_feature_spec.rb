@@ -77,6 +77,7 @@ feature 'reviewing' do
     leave_review('KFC', 'So, so', 3)
     Timecop.travel((60*60*5))
     expect(page).to have_content('posted 5 hours ago')
+    Timecop.return
   end
 
 

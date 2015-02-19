@@ -6,4 +6,10 @@ module ReviewsHelper
     '★' * rating.round + "☆" * remainder
   end
 
+  def time_since(review)
+    puts Time.now
+    puts review.created_at
+    return "#{time_since_post_minutes} minues ago"
+  end
+
 end
