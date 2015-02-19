@@ -64,3 +64,10 @@ def add_restaurant(restaurant)
   fill_in('Name', with: "#{restaurant}")
   click_button('Create Restaurant')
 end
+
+def leave_review(restaurant, review, rating)
+  click_link "Review #{restaurant}"
+  fill_in "Thoughts", with: "#{review}"
+  select "#{rating}", from: 'Rating'
+  click_button 'Leave Review'
+end
