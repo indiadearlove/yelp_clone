@@ -43,4 +43,22 @@ feature 'reviewing' do
     expect(page).to have_link('Delete review')
   end
 
+  scenario 'users can not delete others reviews' do
+    sign_up('test')
+    add_restaurant('KFC')
+    leave_review('KFC', "so, so", "3")
+    click_link('Sign out')
+    sign_up('bob')
+    expect(page).not_to have_link('Delete review')
+  end
+
+    scenario 'users can delete their own reviews' do
+    sign_up('test')
+    add_restaurant('KFC')
+    leave_review('KFC', "so, so", "3")
+    click_link('Delete review')
+    expect(page).not_to have_content("so, so")
+    expect(page).to have_content('Review deleted successfully')
+  end
+
 end
