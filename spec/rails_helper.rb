@@ -58,11 +58,16 @@ def sign_up(email)
   click_button('Sign up')
 end
 
-#Creating a restaurant only works after signing in
-
-def create_restaurant(restaurant)
-    click_link('Add a restaurant')
-    fill_in('Name', with: "#{restaurant}")
-    click_button('Create Restaurant')
+def add_restaurant(restaurant)
+  visit('/')
+  click_link('Add a restaurant')
+  fill_in('Name', with: "#{restaurant}")
+  click_button('Create Restaurant')
 end
 
+def leave_review(restaurant, review, rating)
+  click_link "Review #{restaurant}"
+  fill_in "Thoughts", with: "#{review}"
+  select "#{rating}", from: 'Rating'
+  click_button 'Leave Review'
+end
