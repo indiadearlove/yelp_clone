@@ -7,9 +7,18 @@ module ReviewsHelper
   end
 
   def time_since(review)
-    puts Time.now
-    puts review.created_at
-    return "#{time_since_post_minutes} minues ago"
+    time_since_post_seconds = ((Time.now - review.created_at))
+    case time_since_post_seconds
+      when 0..(60 * 60)
+        return "#{(time_since_post_seconds/60).to_i} minutes ago"
+      when ((60 * 60)+1)..(60 * 60 * 24)
+        return "#{(time_since_post_seconds/60/60).to_i} hours ago"
+      when ((60 * 60 * 24)+1)..( 60 * 60 * 24 * 7)
+        return "#{(time_since_post_seconds/60/60/24).to_i} days ago"
+      else
+        return review.created_at
+    end
+
   end
 
 end

@@ -26,9 +26,29 @@ describe ReviewsHelper, type: :helper do
 
     it 'shows minutes since made when less then hour' do
       review = Review.create(thoughts: 'Great',rating: 1)
-      puts review.created_at
       Timecop.travel(60*10)
       expect(helper.time_since(review)).to eq "10 minutes ago"
+      Timecop.return
+    end
+
+    it 'shows minutes since made when more then hour and less then a day' do
+      review = Review.create(thoughts: 'Great',rating: 1)
+      Timecop.travel(60*60*2)
+      expect(helper.time_since(review)).to eq "2 hours ago"
+      Timecop.return
+    end
+
+    it 'shows more then a day less then a week' do
+      review = Review.create(thoughts: 'Great',rating: 1)
+      Timecop.travel(60*60*24*3)
+      expect(helper.time_since(review)).to eq "3 days ago"
+      Timecop.return
+    end
+
+    it 'shows more then a week' do
+      review = Review.create(thoughts: 'Great',rating: 1)
+      Timecop.travel(60*60*24*7*3)
+      expect(helper.time_since(review)).to eq review.created_at
       Timecop.return
     end
 
