@@ -71,5 +71,13 @@ feature 'reviewing' do
     expect(page).to have_content('Average rating: ★★★★☆')
   end
 
+  scenario 'displays time since review was made' do
+    sign_up('bob')
+    add_restaurant('KFC')
+    leave_review('KFC', 'So, so', 3)
+    Timecop.travel((60*60*5))
+    expect(page).to have_content('posted 5 hours ago')
+  end
+
 
 end

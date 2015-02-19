@@ -22,4 +22,14 @@ describe ReviewsHelper, type: :helper do
 
   end
 
+  context 'time stamp' do
+
+    it 'shows minutes since made when less then hour' do
+      review = Review.new(rating: 1)
+      Timecop.travel((10*60))
+      expect(helper.time_since).to eq "10 minutes ago"
+    end
+
+  end
+
 end
